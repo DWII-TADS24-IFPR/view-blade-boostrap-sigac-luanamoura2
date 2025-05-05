@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alunos', function (Blueprint $table) {
+        Schema::create('documentos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('cpf')->unique();
-            $table->string('email')->unique();
-            $table->string('telefone')->nullable();
+            $table->string('url');
+            $table->string('descricao');
+            $table->decimal('horas_in', 5, 2);
+            $table->string('status');
+            $table->text('comentario');
+            $table->decimal('horas_out', 5, 2);
+
+            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alunos');
+        Schema::dropIfExists('documentos');
     }
 };

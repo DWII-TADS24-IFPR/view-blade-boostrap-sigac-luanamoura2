@@ -1,6 +1,5 @@
 <footer>
     <div class="container">
-        <p class="text-center">© 2025 Meu Projeto. Todos os direitos reservados.</p>
-        <p class="text-center">Desenvolvido por Carol Feltz</p>
+        <p class="text-center">rodape</p>
     </div>
 </footer>

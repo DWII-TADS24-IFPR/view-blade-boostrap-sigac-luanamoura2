@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Níveis')
+@section('title', 'Turmas')
 
 @section('content')
-    <h1 class="my-4">Níveis</h1>
+    <h1 class="my-4">Turmas</h1>
 
-    <a href="{{ route('niveis.create') }}" class="btn btn-primary mb-3">Novo Nível</a>
+    <a href="{{ route('turmas.create') }}" class="btn btn-primary mb-3">Nova Turma</a>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -15,18 +15,18 @@
         <thead class="table-dark">
             <tr>
                 <th>Nome</th>
-                <th>Descrição</th>
+                <th>Período</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($niveis as $nivel)
+            @forelse($turmas as $turma)
                 <tr>
-                    <td>{{ $nivel->nome }}</td>
-                    <td>{{ Str::limit($nivel->descricao, 50) }}</td>
+                    <td>{{ $turma->nome }}</td>
+                    <td>{{ $turma->periodo }}</td>
                     <td>
-                        <a href="{{ route('niveis.edit', $nivel->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('niveis.destroy', $nivel->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('turmas.edit', $turma->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="{{ route('turmas.destroy', $turma->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-danger" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
@@ -34,7 +34,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="3">Nenhum nível cadastrado.</td></tr>
+                <tr><td colspan="3">Nenhuma turma cadastrada.</td></tr>
             @endforelse
         </tbody>
     </table>

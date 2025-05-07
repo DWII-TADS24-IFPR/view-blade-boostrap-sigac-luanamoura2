@@ -8,6 +8,7 @@ use App\Http\Controllers\ComprovanteController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DeclaraçãoController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\Relatoriocontroller;
 use App\Http\Controllers\TurmaController;
 
 Route::get('/', function () {
@@ -22,3 +23,4 @@ Route::resource('cursos', CursoController::class);
 Route::resource('declaracoes', DeclaracoesController::class);
 Route::resource('documentos', DocumentoController::class);
 Route::resource('turmas', TurmaController::class);
+Route::get('/relatorios', [Relatoriocontroller::class, 'emitirRelatorio'])->name('relatorio.emitir');

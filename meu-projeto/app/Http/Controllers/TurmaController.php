@@ -21,7 +21,7 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        //
+         return view('turmas.create');
     }
 
     /**

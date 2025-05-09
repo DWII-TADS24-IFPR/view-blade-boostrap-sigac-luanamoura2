@@ -5,7 +5,9 @@
 @section('content')
     <h1>HOME</h1>
 
-    <x-alert tipo="success">
-        <strong>Sucesso!</strong> Sua mensagem foi enviada com sucesso.
-    </x-alert>
+    @if(session('success'))
+        <x-alert tipo="success">
+            <strong>Sucesso!</strong> {{ session('success') }}
+        </x-alert>
+    @endif
 @endsection

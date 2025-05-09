@@ -21,7 +21,7 @@ class DeclaracaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cursos.create');
     }
 
     /**

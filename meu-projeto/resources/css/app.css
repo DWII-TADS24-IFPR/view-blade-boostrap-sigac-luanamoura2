@@ -1,11 +1,29 @@
-@import 'tailwindcss';
+/* Resetando margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* Garantindo que o body ocupe toda a altura da janela */
+html, body {
+    height: 100%;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Layout flexível para o corpo da página */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Conteúdo principal da página */
+main {
+    flex-grow: 1;
+}
+
+/* Estilos do rodapé */
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
 }

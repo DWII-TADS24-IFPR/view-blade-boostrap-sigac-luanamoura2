@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">SIGAC</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -8,40 +8,56 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Menu do lado esquerdo -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Link Home -->
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
 
-                <!-- Dropdown Alunos -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Alunos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('alunos.index') }}">Listar Alunos</a></li>
                         <li><a class="dropdown-item" href="{{ route('alunos.create') }}">Adicionar Aluno</a></li>
+                        <li><a class="dropdown-item" href="{{ route('alunos.index') }}">Listar Alunos</a></li>
                     </ul>
                 </li>
 
-                <!-- Link Cursos -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cursos.index') }}">Cursos</a>
                 </li>
 
-                <!-- Link Turmas -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('turmas.index') }}">Turmas</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('nivels.index') }}">Níveis</a>
+                </li>
+
+                <!-- Menu "Mais" agora depois de Níveis -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Mais
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('comprovantes.index') }}">Comprovantes</a></li>
+                        <li><a class="dropdown-item" href="{{ route('declaracoes.index') }}">Declarações</a></li>
+                        <li><a class="dropdown-item" href="{{ route('documentos.index') }}">Documentos</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categorias.index') }}">Categorias</a></li>
+                    </ul>
                 </li>
             </ul>
 
             <!-- Formulário de busca -->
-            <form class="d-flex" role="search">
+            <form class="d-flex me-3" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
+
         </div>
     </div>
 </nav>

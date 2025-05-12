@@ -11,7 +11,7 @@ use App\Models\Aluno;
 class Curso extends Model
 {
     protected $table = 'cursos';
-    protected $fillable = ['nome', 'sigla', 'nivel_id'];
+    protected $fillable = ['nome', 'carga_horaria'];
 
     public function nivel(){
         return $this->belongsTo(Nivel::class);

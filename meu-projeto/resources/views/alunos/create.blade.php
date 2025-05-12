@@ -25,11 +25,39 @@
           <label for="senha" class="form-label">Senha</label>
           <input type="text" class="form-control rounded-3" id="senha" name="senha">
         </div>
+        
+        
         <div class="mb-3">
-          <label for="turma_id" class="form-label">Turma_id</label>
-          <input type="text" class="form-control rounded-3" id="turma_id" name="turma_id">
+          <label for="turma_id" class="form-label">Turma</label>
+          <select class="form-select rounded-3" id="turma_id" name="turma_id" required>
+            <option value="">Selecione uma turma</option>
+            @foreach($turmas as $turma)
+              <option value="{{ $turma->id }}">{{ $turma->nome }}</option>
+            @endforeach
+          </select>
         </div>
-        <!-- Adicione mais campos conforme necessário -->
+
+        
+        <div class="mb-3">
+          <label for="curso_id" class="form-label">Curso</label>
+          <select class="form-select rounded-3" id="curso_id" name="curso_id" required>
+            <option value="">Selecione um curso</option>
+            @foreach($cursos as $curso)
+              <option value="{{ $curso->id }}">{{ $curso->nome }}</option>
+            @endforeach
+          </select>
+        </div>
+        
+        <div class="mb-3">
+          <label for="nivel_id" class="form-label">Nível</label>
+          <select class="form-select rounded-3" id="nivel_id" name="nivel_id" required>
+              <option value="">Selecione o nível</option>
+              @foreach($nivels as $nivel)
+                  <option value="{{ $nivel->id }}">{{ $nivel->nome }}</option>
+              @endforeach
+          </select>
+      </div>
+      
         <button type="submit" class="btn btn-success">
           <i class="bi bi-check-circle"></i> Salvar
         </button>
@@ -41,4 +69,3 @@
   </div>
 </div>
 @endsection
-

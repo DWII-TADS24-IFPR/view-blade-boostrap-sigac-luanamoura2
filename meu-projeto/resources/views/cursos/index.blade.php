@@ -3,9 +3,9 @@
 @section('title', 'Lista de Cursos')
 
 @section('content')
-    <h1 class="my-4">Cursos</h1>
+    <h1 class="my-4">Lista de Cursos</h1>
 
-    <a href="{{ route('cursos.create') }}" class="btn btn-primary mb-3">Novo Curso</a>
+    <a href="{{ route('cursos.create') }}" class="btn btn-primary mb-3">Adicionar Curso</a>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

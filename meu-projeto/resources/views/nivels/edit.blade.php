@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>Editar Nível</h1>
+<h1 class="my-4">Editar Nível</h1>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -16,7 +16,7 @@
     </div>
 @endif
 
-<form action="{{ route('niveis.update', $nivel->id) }}" method="POST">
+<form action="{{ route('nivels.update', $nivel->id) }}" method="POST">
     @csrf
     @method('PUT')
     
@@ -28,6 +28,6 @@
     <button type="submit" class="btn btn-warning">Atualizar</button>
 </form>
 
-<a href="{{ route('niveis.index') }}" class="btn btn-secondary">Voltar</a>
+<a href="{{ route('nivels.index') }}" class="btn btn-secondary">Voltar</a>
 
 @endsection

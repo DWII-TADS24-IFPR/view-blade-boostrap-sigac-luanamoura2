@@ -27,10 +27,22 @@ class CursoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+
+        public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'carga_horaria' => 'required|numeric|min:1',
+        ]);
+
+        Curso::create([
+            'nome' => $request->nome,
+            'carga_horaria' => $request->carga_horaria,
+        ]);
+
+        return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso.');
     }
+
 
     /**
      * Display the specified resource.

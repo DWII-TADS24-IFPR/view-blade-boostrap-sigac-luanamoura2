@@ -15,8 +15,9 @@
         </div>
         <div class="mb-3">
           <label for="carga_horaria" class="form-label">Carga Horária</label>
-          <input type="number" class="form-control rounded-3" id="carga_horaria" name="carga_horaria" required>
+          <input type="number" class="form-control" id="carga_horaria" name="carga_horaria" required>
         </div>
+      
         <button type="submit" class="btn btn-success">
           <i class="bi bi-check-circle"></i> Salvar
         </button>

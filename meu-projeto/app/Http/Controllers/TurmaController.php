@@ -7,58 +7,70 @@ use App\Models\Turma;
 
 class TurmaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    
     public function index()
     {
+       
         $turmas = Turma::all();
-        return view('turmas.index')->with('turmas', $turmas);
+
+       
+        foreach ($turmas as $turma) {
+            $turma->periodo = $turma->inicio . ' até ' . $turma->fim;
+        }
+
+        return view('turmas.index', compact('turmas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    
     public function create()
     {
-         return view('turmas.create');
+        $cursos = \App\Models\Curso::all();  
+        return view('turmas.create', compact('cursos'));  
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+       
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'curso_id' => 'required|exists:cursos,id', 
+            'ano' => 'required|integer', 
+            'inicio' => 'required|date',
+            'fim' => 'required|date',
+        ]);
+    
+      
+        Turma::create([
+            'nome' => $request->nome,
+            'curso_id' => $request->curso_id,
+            'ano' => $request->ano,  
+            'inicio' => $request->inicio,
+            'fim' => $request->fim,
+        ]);
+    
+        return redirect()->route('turmas.index')->with('success', 'Turma criada com sucesso!');
     }
-
-    /**
-     * Display the specified resource.
-     */
+    
+    
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         //

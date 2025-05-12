@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Turma;
+use App\Models\Nivel;
 
 class TurmaController extends Controller
 {
@@ -61,13 +62,25 @@ class TurmaController extends Controller
     
     public function edit(string $id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+        $niveis = Nivel::all();
+    return view('turmas.edit', compact('turma', 'niveis'));
     }
 
     
-    public function update(Request $request, string $id)
+   public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'nivel_id' => 'required|exists:nivels,id',
+    ]);
+
+    $turma = Turma::findOrFail($id);
+    $turma->nome = $request->nome;
+    $turma->nivel_id = $request->nivel_id;
+    $turma->save();
+
+    return redirect()->route('turmas.index')->with('success', 'Turma atualizada com sucesso!');
     }
 
     

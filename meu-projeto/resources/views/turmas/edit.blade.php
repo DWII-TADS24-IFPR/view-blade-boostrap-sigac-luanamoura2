@@ -3,36 +3,31 @@
 @section('title', 'Editar Turma')
 
 @section('content')
-
-<h1>Editar Turma</h1>
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<h1 class="my-4">Editar Turma</h1>
 
 <form action="{{ route('turmas.update', $turma->id) }}" method="POST">
     @csrf
     @method('PUT')
 
     <div class="mb-3">
-        <label for="nome" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $turma->nome) }}" required>
+        <label for="nome" class="form-label">Nome da Turma</label>
+        <input type="text" name="nome" id="nome" class="form-control" value="{{ old('nome', $turma->nome) }}">
+        @error('nome') <div class="text-danger">{{ $message }}</div> @enderror
     </div>
 
     <div class="mb-3">
-        <label for="descricao" class="form-label">Descrição</label>
-        <textarea class="form-control" id="descricao" name="descricao" required>{{ old('descricao', $turma->descricao) }}</textarea>
+        <label for="nivel_id" class="form-label">Nível</label>
+        <select name="nivel_id" id="nivel_id" class="form-select">
+            @foreach ($niveis as $nivel)
+                <option value="{{ $nivel->id }}" {{ $turma->nivel_id == $nivel->id ? 'selected' : '' }}>
+                    {{ $nivel->nome }}
+                </option>
+            @endforeach
+        </select>
+        @error('nivel_id') <div class="text-danger">{{ $message }}</div> @enderror
     </div>
 
-    <button type="submit" class="btn btn-warning">Atualizar</button>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+    <a href="{{ route('turmas.index') }}" class="btn btn-secondary">Cancelar</a>
 </form>
-
-<a href="{{ route('turmas.index') }}" class="btn btn-secondary">Voltar</a>
-
 @endsection

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Aluno;
 use App\Models\Curso;
@@ -52,23 +52,36 @@ class AlunoController extends Controller
     public function edit(string $id)
     {
         $aluno = Aluno::findOrFail($id);
-        return view('alunos.edit')->with('aluno', $aluno);
+        $turmas = Turma::all(); 
+        return view('alunos.edit', compact('aluno', 'turmas'));
     }
 
     
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:alunos,email,' . $id,
-            'telefone' => 'required|string|max:15',
-        ]);
+   public function update(Request $request, $id)
+{
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'cpf' => 'required|string|max:14',
+        'email' => 'required|email',
+        'turma_id' => 'required|integer|exists:turmas,id',
+        'senha' => 'nullable|string|min:6'
+    ]);
 
-        $aluno = Aluno::findOrFail($id);
-        $aluno->update($request->all());
+    $aluno = Aluno::findOrFail($id);
 
-        return redirect()->route('alunos.index')->with('success', 'Aluno atualizado com sucesso.');
+    $aluno->nome = $request->nome;
+    $aluno->cpf = $request->cpf;
+    $aluno->email = $request->email;
+    $aluno->turma_id = $request->turma_id;
+
+    if ($request->filled('senha')) {
+        $aluno->senha = Hash::make($request->senha);
     }
+
+    $aluno->save();
+
+    return redirect()->route('alunos.index')->with('success', 'Aluno atualizado com sucesso!');
+}
 
    
     public function destroy(string $id)

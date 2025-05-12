@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use App\Models\Turma;
 
 class CursoController extends Controller
 {
@@ -21,14 +22,14 @@ class CursoController extends Controller
      */
     public function create()
     {
-         return view('cursos.create');
+        return view('cursos.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
 
-        public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -40,7 +41,7 @@ class CursoController extends Controller
             'carga_horaria' => $request->carga_horaria,
         ]);
 
-        return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso.');
+         return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso.');
     }
 
 
@@ -57,15 +58,28 @@ class CursoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+         $curso = Curso::findOrFail($id); 
+         $turmas = Turma::all(); 
+        return view('cursos.edit', compact('curso', 'turmas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'carga_horaria' => 'required|integer|min:1',
+    ]);
+
+    $curso = Curso::findOrFail($id);
+    $curso->nome = $request->nome;
+    $curso->carga_horaria = $request->carga_horaria;
+    
+    $curso->save();
+
+    return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso!');
     }
 
     /**
@@ -73,6 +87,9 @@ class CursoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+    $curso = Curso::findOrFail($id);
+    $curso->delete();
+
+    return redirect()->route('cursos.index')->with('success', 'Curso excluído com sucesso!');
     }
 }

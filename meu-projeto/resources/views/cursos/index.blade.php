@@ -26,10 +26,11 @@
                     <td>{{ $curso->carga_horaria }} horas</td>
                     <td>
                         <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST" class="d-inline">
+
+                        <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir?')">Excluir</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                         </form>
                     </td>
                 </tr>

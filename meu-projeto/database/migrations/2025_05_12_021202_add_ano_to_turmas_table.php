@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
 {
     Schema::table('turmas', function (Blueprint $table) {
-        $table->integer('ano'); // Adiciona o campo 'ano' à tabela
+        $table->integer('ano'); 
     });
 }
 
 public function down()
 {
     Schema::table('turmas', function (Blueprint $table) {
-        $table->dropColumn('ano'); // Caso precise desfazer a migration, remove o campo 'ano'
+        $table->dropColumn('ano');
     });
 }
 

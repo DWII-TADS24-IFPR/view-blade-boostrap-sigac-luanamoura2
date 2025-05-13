@@ -3,48 +3,73 @@
 @section('title', 'Lista de Comprovantes')
 
 @section('content')
-    <h1 class="my-4">Comprovantes</h1>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Lista de Comprovantes</h4>
+        </div>
+        <div class="card-body">
+            <!-- Botão Adicionar Comprovante -->
+            <div class="mb-3">
+                <a href="{{ route('comprovantes.create') }}" class="btn btn-primary">
+                    <i class="bi bi-file-earmark-plus"></i> Adicionar Comprovante
+                </a>
+            </div>
 
-    <a href="{{ route('comprovantes.create') }}" class="btn btn-primary mb-3">Novo Comprovante</a>
+            <!-- Mensagem de sucesso -->
+            @if(session('success'))
+                <div class="alert alert-success mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Descrição</th>
-                <th>Arquivo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($comprovantes as $comprovante)
-                <tr>
-                    <td>{{ $comprovante->descricao }}</td>
-                    <td>
-                        @if ($comprovante->arquivo)
-                            <a href="{{ asset('storage/' . $comprovante->arquivo) }}" target="_blank">Ver Arquivo</a>
-                        @else
-                            Nenhum arquivo
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('comprovantes.edit', $comprovante->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('comprovantes.destroy', $comprovante->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir?')">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Nenhum comprovante cadastrado.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            <!-- Tabela -->
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Atividade</th>
+                        <th>Horas</th>
+                        <th>Categoria</th>
+                        <th>Aluno</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($comprovantes as $comprovante)
+                        <tr>
+                            <td>{{ $comprovante->id }}</td>
+                            <td>{{ $comprovante->atividade }}</td>
+                            <td>{{ $comprovante->horas }}</td>
+                            <td>{{ $comprovante->categoria->nome ?? '-' }}</td>
+                            <td>{{ $comprovante->aluno->nome ?? '-' }}</td>
+                            <td>
+                                <!-- Botão Visualizar -->
+                                <a href="{{ route('comprovantes.show', $comprovante->id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Visualizar
+                                </a>
+                                <!-- Botão Editar -->
+                                <a href="{{ route('comprovantes.edit', $comprovante->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <!-- Botão Excluir -->
+                                <form action="{{ route('comprovantes.destroy', $comprovante->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Deletar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Nenhum comprovante cadastrado.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
-

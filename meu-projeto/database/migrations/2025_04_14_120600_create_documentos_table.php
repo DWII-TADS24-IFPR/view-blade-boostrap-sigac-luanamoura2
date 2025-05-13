@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status');
             $table->text('comentario')->nullable();
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
-
+            
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1,43 +1,70 @@
 @extends('layouts.app')
 
-@section('title', 'Declarações')
+@section('title', 'Lista de Declarações')
 
 @section('content')
-    <h1 class="my-4">Declarações</h1>
 
-    <a href="{{ route('declaracoes.create') }}" class="btn btn-primary mb-3">Nova Declaração</a>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Lista de Declarações</h4>
+        </div>
+        <div class="card-body">
+            <!-- Botão Adicionar Declaração no canto esquerdo -->
+            <div class="mb-3">
+                <a href="{{ route('declaracoes.create') }}" class="btn btn-primary">
+                    <i class="bi bi-file-earmark-plus"></i> Nova Declaração
+                </a>
+            </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+            @if (session('success'))
+                <div class="alert alert-success mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Tipo</th>
-                <th>Texto</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($declaracoes as $declaracao)
-                <tr>
-                    <td>{{ $declaracao->tipo }}</td>
-                    <td>{{ Str::limit($declaracao->texto, 50) }}</td>
-                    <td>
-                        <a href="{{ route('declaracoes.edit', $declaracao->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('declaracoes.destroy', $declaracao->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir?')">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Nenhuma declaração cadastrada.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Hash</th>
+                        <th>Data</th>
+                        <th>Comprovante</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($declaracoes as $declaracao)
+                        <tr>
+                            <td>{{ $declaracao->id }}</td>
+                            <td>{{ $declaracao->hash }}</td>
+                            <td>{{ \Carbon\Carbon::parse($declaracao->data)->format('d/m/Y') }}</td>
+                            <td>{{ $declaracao->comprovante->atividade ?? 'N/A' }}</td>
+                            <td>
+                                <a href="{{ route('declaracoes.show', $declaracao->id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Visualizar
+                                </a>
+                                <a href="{{ route('declaracoes.edit', $declaracao->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <form action="{{ route('declaracoes.destroy', $declaracao->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Deletar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">Nenhuma declaração cadastrada.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 @endsection

@@ -4,45 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Declaracao;
+use App\Models\Aluno;
+use App\Models\Comprovante;
 
 class DeclaracaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        $declaracoes = Declaracao::all();
-        return view('declaracoes.index')->with('declaracoes', $declaracoes);
+        $declaracoes = Declaracao::with('comprovante')->get();
+        return view('declaracoes.index', compact('declaracoes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('cursos.create');
+        $comprovantes = Comprovante::all();
+        $alunos = Aluno::all(); 
+        return view('declaracoes.create', compact('comprovantes', 'alunos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'aluno_id' => 'required|exists:alunos,id',
+            'comprovante_id' => 'required|exists:comprovantes,id',
+        ]);
+
+        Declaracao::create([
+            'hash' => bin2hex(random_bytes(10)),
+            'data' => now(),
+            'aluno_id' => $request->aluno_id,
+            'comprovante_id' => $request->comprovante_id,
+        ]);
+
+        return redirect()->route('declaracoes.index')->with('success', 'Declaração criada com sucesso!');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
-    }
+       
+        $declaracao = Declaracao::with(['comprovante', 'aluno'])->findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+        
+        if (!$declaracao) {
+            return redirect()->route('declaracoes.index')->with('error', 'Declaração não encontrada.');
+        }
+
+        return view('declaracoes.show', compact('declaracao'));
+    }
+   
     public function edit(string $id)
     {
         //

@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('comprovantes', function (Blueprint $table) {
             $table->id();
-            $table->decimal('horas', 5, 2);
             $table->string('atividade');
-
+            $table->integer('horas');
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->foreignId('aluno_id')->constrained('alunos')->onDelete('cascade');
 

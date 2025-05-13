@@ -15,10 +15,29 @@
         @error('nome') <div class="text-danger">{{ $message }}</div> @enderror
     </div>
 
-      <div class="mb-3">
+    <div class="mb-3">
+        <label for="sigla" class="form-label">Sigla</label>
+        <input type="text" class="form-control" id="sigla" name="sigla" value="{{ old('sigla', $curso->sigla) }}" required>
+    </div>
+
+    <div class="mb-3">
         <label for="carga_horaria" class="form-label">Carga Horária</label>
         <input type="number" name="carga_horaria" id="carga_horaria" class="form-control" value="{{ old('carga_horaria', $curso->carga_horaria) }}">
         @error('carga_horaria') <div class="text-danger">{{ $message }}</div> @enderror
+    </div>
+
+    <!-- Campo Nível -->
+    <div class="mb-3">
+        <label for="nivel_id" class="form-label">Nível</label>
+        <select name="nivel_id" id="nivel_id" class="form-control" required>
+            <option value="">Selecione o nível</option>
+            @foreach($nivels as $nivel)
+                <option value="{{ $nivel->id }}" {{ $curso->nivel_id == $nivel->id ? 'selected' : '' }}>
+                    {{ $nivel->nome }}
+                </option>
+            @endforeach
+        </select>
+        @error('nivel_id') <div class="text-danger">{{ $message }}</div> @enderror
     </div>
 
     <div class="mb-3">

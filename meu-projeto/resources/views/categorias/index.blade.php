@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Lista de Categorias')
-
 @section('content')
-    <h1 class="my-4">Categorias</h1>
+<div class="container">
+    <h1 class="my-4">Lista de Categorias</h1>
 
-    <a href="{{ route('categorias.create') }}" class="btn btn-primary mb-3">Nova Categoria</a>
+    <a href="{{ route('categorias.create') }}" class="btn btn-primary mb-3">Adicionar Categoria</a>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -15,27 +14,28 @@
         <thead class="table-dark">
             <tr>
                 <th>Nome</th>
+                <th>Curso</th>
+                <th>Carga Horária</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($categorias as $categoria)
+            @foreach($categorias as $categoria)
                 <tr>
                     <td>{{ $categoria->nome }}</td>
+                    <td>{{ $categoria->curso ? $categoria->curso->nome : 'Curso não encontrado' }}</td>
+                    <td>{{ number_format($categoria->max_horas, 0, ',', '.') }} horas</td> <!-- Aqui está o ajuste -->
                     <td>
                         <a href="{{ route('categorias.edit', $categoria->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir?')">Excluir</button>
+                            <button class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</button>
                         </form>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="2">Nenhuma categoria cadastrada.</td>
-                </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
+</div>
 @endsection

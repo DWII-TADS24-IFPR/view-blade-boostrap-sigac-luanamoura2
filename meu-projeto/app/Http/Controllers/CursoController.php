@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\Turma;
+use App\Models\Nivel;
 
 class CursoController extends Controller
 {
@@ -13,37 +14,44 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $cursos = Curso::all();
-        return view('cursos.index')->with('cursos', $cursos);
+        $cursos = Curso::with('nivel')->get(); 
+        return view('cursos.index', compact('cursos'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('cursos.create');
+        $turmas = Turma::all();
+        $nivels = Nivel::all();
+        return view('cursos.create', compact('turmas', 'nivels'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-
     public function store(Request $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'carga_horaria' => 'required|numeric|min:1',
+            'sigla' => 'required|string|max:10',
+            'nivel_id' => 'required|exists:nivels,id',  // O nível deve existir
+            'carga_horaria' => 'required|integer',
         ]);
+
+
 
         Curso::create([
             'nome' => $request->nome,
+            'sigla' => $request->sigla,
+            'nivel_id' => $request->nivel_id,
             'carga_horaria' => $request->carga_horaria,
         ]);
 
-         return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso.');
+        return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso!');
     }
-
 
     /**
      * Display the specified resource.
@@ -58,38 +66,43 @@ class CursoController extends Controller
      */
     public function edit(string $id)
     {
-         $curso = Curso::findOrFail($id); 
-         $turmas = Turma::all(); 
-        return view('cursos.edit', compact('curso', 'turmas'));
+        $curso = Curso::findOrFail($id);
+        $turmas = Turma::all();
+        $nivels = Nivel::all();
+        return view('cursos.edit', compact('curso', 'turmas', 'nivels'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, $id)
     {
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'carga_horaria' => 'required|integer|min:1',
-    ]);
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'sigla' => 'required|string|max:10',
+            'nivel_id' => 'required|exists:nivels,id',
+            'carga_horaria' => 'required|integer',
+        ]);
 
-    $curso = Curso::findOrFail($id);
-    $curso->nome = $request->nome;
-    $curso->carga_horaria = $request->carga_horaria;
-    
-    $curso->save();
+        $curso = Curso::findOrFail($id);
+        $curso->update([
+            'nome' => $request->nome,
+            'sigla' => $request->sigla,
+            'nivel_id' => $request->nivel_id,
+            'carga_horaria' => $request->carga_horaria,
+        ]);
 
-    return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso!');
+        return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso!');
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-    $curso = Curso::findOrFail($id);
-    $curso->delete();
+        $curso = Curso::findOrFail($id);
+        $curso->delete();
 
-    return redirect()->route('cursos.index')->with('success', 'Curso excluído com sucesso!');
+        return redirect()->route('cursos.index')->with('success', 'Curso excluído com sucesso!');
     }
 }

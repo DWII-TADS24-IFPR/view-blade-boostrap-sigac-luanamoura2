@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
 {
     Schema::table('turmas', function (Blueprint $table) {
-        $table->integer('ano'); 
+        
     });
 }
 

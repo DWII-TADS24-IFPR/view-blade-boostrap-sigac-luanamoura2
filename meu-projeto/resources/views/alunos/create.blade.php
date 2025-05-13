@@ -25,8 +25,7 @@
           <label for="senha" class="form-label">Senha</label>
           <input type="text" class="form-control rounded-3" id="senha" name="senha">
         </div>
-        
-        
+    
         <div class="mb-3">
           <label for="turma_id" class="form-label">Turma</label>
           <select class="form-select rounded-3" id="turma_id" name="turma_id" required>
@@ -47,17 +46,7 @@
             @endforeach
           </select>
         </div>
-        
-        <div class="mb-3">
-          <label for="nivel_id" class="form-label">Nível</label>
-          <select class="form-select rounded-3" id="nivel_id" name="nivel_id" required>
-              <option value="">Selecione o nível</option>
-              @foreach($nivels as $nivel)
-                  <option value="{{ $nivel->id }}">{{ $nivel->nome }}</option>
-              @endforeach
-          </select>
-      </div>
-      
+  
         <button type="submit" class="btn btn-success">
           <i class="bi bi-check-circle"></i> Salvar
         </button>

@@ -12,16 +12,19 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('categorias.index')->with('categorias', $categorias);
+
+        $categorias = Categoria::with('curso')->get();
+        return view('categorias.index', compact('categorias'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('categorias.create');
+        $cursos = \App\Models\Curso::all();
+        return view('categorias.create', compact('cursos'));
     }
 
     /**
@@ -29,7 +32,22 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'nome' => 'required|string|max:255|unique:categorias',
+            'max_horas' => 'required|numeric|min:0',
+            'curso_id' => 'required|exists:cursos,id',
+        ]);
+
+
+        Categoria::create([
+            'nome' => $request->nome,
+            'max_horas' => $request->max_horas,
+            'curso_id' => $request->curso_id,
+        ]);
+
+
+        return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
     }
 
     /**

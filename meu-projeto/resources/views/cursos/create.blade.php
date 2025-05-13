@@ -14,10 +14,28 @@
           <input type="text" class="form-control rounded-3" id="nome" name="nome" required>
         </div>
         <div class="mb-3">
+          <label for="sigla" class="form-label">Sigla</label>
+          <input type="text" class="form-control" id="sigla" name="sigla" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="nivel_id" class="form-label">Nível</label>
+          <select name="nivel_id" id="nivel_id" class="form-control" required>
+            <option value="">Selecione o nível</option>
+            @foreach($nivels as $nivel)
+            <option value="{{ $nivel->id }}">{{ $nivel->nome }}</option>
+            @endforeach
+          </select>
+        </div>
+
+
+
+        <div class="mb-3">
           <label for="carga_horaria" class="form-label">Carga Horária</label>
           <input type="number" class="form-control" id="carga_horaria" name="carga_horaria" required>
         </div>
-      
+
+
         <button type="submit" class="btn btn-success">
           <i class="bi bi-check-circle"></i> Salvar
         </button>

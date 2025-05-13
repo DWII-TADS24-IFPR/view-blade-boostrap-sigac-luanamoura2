@@ -31,8 +31,8 @@
 
 
         <div class="mb-3">
-          <label for="carga_horaria" class="form-label">Carga Horária</label>
-          <input type="number" class="form-control" id="carga_horaria" name="carga_horaria" required>
+          <label for="total_horas" class="form-label">Total de Horas</label>
+          <input type="number" class="form-control" id="total_horas" name="total_horas" required>
         </div>
 
 

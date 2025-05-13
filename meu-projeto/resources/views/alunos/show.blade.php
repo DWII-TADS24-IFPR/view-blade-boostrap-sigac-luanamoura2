@@ -3,13 +3,39 @@
 @section('title', 'Detalhes do Aluno')
 
 @section('content')
-    <h1 class="my-4">Detalhes do Aluno</h1>
 
-    <ul class="list-group">
-        <li class="list-group-item"><strong>Nome:</strong> {{ $aluno->nome }}</li>
-        <li class="list-group-item"><strong>Email:</strong> {{ $aluno->email }}</li>
-       
-    </ul>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Detalhes do Aluno</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="mb-4">Sobre o Aluno</h1>
 
-    <a href="{{ route('alunos.index') }}" class="btn btn-secondary mt-3">Voltar</a>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Turma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $aluno->nome }}</td>
+                        <td>{{ $aluno->email }}</td>
+                        <td>{{ $aluno->turma ? $aluno->turma->ano : 'Sem turma' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ route('alunos.index') }}" class="btn btn-primary">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

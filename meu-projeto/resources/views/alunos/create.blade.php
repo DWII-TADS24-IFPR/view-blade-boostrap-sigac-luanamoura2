@@ -3,9 +3,6 @@
 @section('content')
 <div class="container mt-5">
   <div class="card shadow rounded-4">
-    <div class="card-header bg-primary text-white">
-      <h4 class="mb-0">Adicionar Aluno</h4>
-    </div>
     <div class="card-body">
       <form action="{{ route('alunos.store') }}" method="POST">
         @csrf
@@ -31,12 +28,11 @@
           <select class="form-select rounded-3" id="turma_id" name="turma_id" required>
             <option value="">Selecione uma turma</option>
             @foreach($turmas as $turma)
-              <option value="{{ $turma->id }}">{{ $turma->nome }}</option>
+              <option value="{{ $turma->id }}">{{ $turma->ano }}</option>
             @endforeach
           </select>
         </div>
 
-        
         <div class="mb-3">
           <label for="curso_id" class="form-label">Curso</label>
           <select class="form-select rounded-3" id="curso_id" name="curso_id" required>

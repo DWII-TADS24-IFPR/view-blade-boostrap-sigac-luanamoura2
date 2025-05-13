@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome')->unique();
             $table->string('sigla')->unique();
-            $table->decimal('total_horas', 5, 2);
+            $table->integer('total_horas', 5, 2);
 
             $table->foreignId('nivel_id')->constrained('nivels')->onDelete('cascade');
 

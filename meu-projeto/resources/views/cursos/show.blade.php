@@ -7,7 +7,7 @@
 
     <ul class="list-group">
         <li class="list-group-item"><strong>Nome:</strong> {{ $curso->nome }}</li>
-        <li class="list-group-item"><strong>Carga Horária:</strong> {{ $curso->carga_horaria }} horas</li>
+        <li class="list-group-item"><strong>Total de Horas:</strong> {{ $curso->total_horas }} horas</li>
     </ul>
 
     <a href="{{ route('cursos.index') }}" class="btn btn-secondary mt-3">Voltar</a>

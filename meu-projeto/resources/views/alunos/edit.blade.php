@@ -58,7 +58,7 @@
           <select name="turma_id" id="turma_id" class="form-select rounded-3" required>
             @foreach($turmas as $turma)
             <option value="{{ $turma->id }}" {{ $aluno->turma_id == $turma->id ? 'selected' : '' }}>
-              {{ $turma->nome }}
+              {{ $turma->ano }}
             </option>
             @endforeach
           </select>

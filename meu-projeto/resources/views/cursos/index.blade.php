@@ -15,7 +15,7 @@
     <thead class="table-dark">
         <tr>
             <th>Nome</th>
-            <th>Carga Horária</th>
+            <th>Total de Horas</th>
             <th>Sigla</th>
             <th>Nível</th>
             <th>Ações</th> 
@@ -25,7 +25,7 @@
         @forelse ($cursos as $curso)
         <tr>
             <td>{{ $curso->nome }}</td>
-            <td>{{ $curso->carga_horaria }} horas</td>
+            <td>{{ $curso->total_horas }} horas</td>
             <td>{{ $curso->sigla }}</td> 
             <td>{{ $curso->nivel ? $curso->nivel->nome : 'Nível não disponível' }}</td>
           

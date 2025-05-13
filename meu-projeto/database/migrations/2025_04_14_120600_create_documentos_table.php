@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->string('descricao');
-            $table->decimal('horas_in', 5, 2);
+            $table->unsignedInteger('horas_in'); 
+            $table->unsignedInteger('horas_out');
             $table->string('status');
-            $table->text('comentario');
-            $table->decimal('horas_out', 5, 2);
-
+            $table->text('comentario')->nullable();
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
 
             $table->softDeletes();

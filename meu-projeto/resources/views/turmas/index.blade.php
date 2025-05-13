@@ -15,7 +15,7 @@
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th>Nome</th>
+                    <th>Ano</th>
                     <th>Período</th>
                     <th>Ações</th>
                 </tr>
@@ -23,7 +23,7 @@
             <tbody>
                 @foreach($turmas as $turma)
                     <tr>
-                        <td>{{ $turma->nome }}</td>
+                        <td>{{ $turma->ano }}</td>
                         <td>{{ $turma->periodo }}</td>
                         <td>
                             <a href="{{ route('turmas.edit', $turma->id) }}" class="btn btn-sm btn-warning">Editar</a>

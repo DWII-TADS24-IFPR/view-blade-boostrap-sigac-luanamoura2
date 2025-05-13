@@ -32,24 +32,33 @@ class DocumentoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'descricao' => 'required|string',
-            'horas_in' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
-        ]);
+public function store(Request $request)
+{
+   
+    $request->validate([
+        'descricao' => 'required|string|max:255',
+        'status' => 'required|string|max:255',
+        'url' => 'nullable|url',
+        'categoria_id' => 'required|exists:categorias,id',
+        'horas_in' => 'required|numeric',
+        'horas_out' => 'required|numeric',
+        'comentario' => 'nullable|string', 
+    ]);
 
+   
+    Documento::create([
+        'descricao' => $request->descricao,
+        'status' => $request->status,
+        'url' => $request->url,  
+        'categoria_id' => $request->categoria_id,
+        'horas_in' => $request->horas_in,
+        'horas_out' => $request->horas_out,
+         'comentario' => $request->comentario,
+    ]);
 
-        Documento::create([
-            'descricao' => $request->descricao,
-            'horas_in' => $request->horas_in,
-            'categoria_id' => $request->categoria_id,
-            'status' => 'pendente',
-        ]);
-
-        return redirect()->route('documentos.index')->with('success', 'Documento criado com sucesso!');
-    }
+ 
+    return redirect()->route('documentos.index')->with('success', 'Documento criado com sucesso!');
+}
 
     /**
      * Display the specified resource.
@@ -64,27 +73,40 @@ class DocumentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+   public function edit(string $id)
     {
         $documento = Documento::findOrFail($id);
         $categorias = \App\Models\Categoria::all();
-        return view('documentos.edit', compact('documento', 'categorias'));
+
+        return view('documentos.edit')->with(['documento' => $documento, 'categorias' => $categorias]);
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    
+  public function update(Request $request, Documento $documento)
     {
-        //
-    }
+        $request->validate([
+            'url' => 'required|string|max:255',
+            'descricao' => 'required|string|max:255',
+            'horas_in' => 'required|numeric',
+            'status' => 'required|string|max:50',
+            'comentario' => 'nullable|string',
+            'horas_out' => 'required|numeric',
+            'categoria_id' => 'required|exists:categorias,id',
+        ]);
 
+        $documento->update($request->all());
+
+        return redirect()->route('documentos.index')->with('success', 'Documento atualizado com sucesso!');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+         $documento = Documento::findOrFail($id);
+        $documento->delete();
+
+        return redirect()->route('documentos.index')->with('success', 'Documento excluído com sucesso.');
     }
 }

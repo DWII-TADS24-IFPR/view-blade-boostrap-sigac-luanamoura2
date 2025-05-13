@@ -3,49 +3,64 @@
 @section('title', 'Lista de Documentos')
 
 @section('content')
-<div class="container">
-    <h1 class="my-4">Documentos</h1>
 
-    <a href="{{ route('documentos.create') }}" class="btn btn-primary mb-3">Novo Documento</a>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Lista de Documentos</h4>
+        </div>
+        <div class="card-body">
+            <!-- Botão Adicionar Documento no canto esquerdo -->
+            <div class="mb-3">
+                <a href="{{ route('documentos.create') }}" class="btn btn-primary">
+                    <i class="bi bi-file-earmark-plus"></i> Adicionar Documento
+                </a>
+            </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+            @if(session('success'))
+                <div class="alert alert-success mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Descrição</th>
-                <th>Horas</th>
-                <th>Categoria</th>
-                <th>Status</th>
-                <th>Arquivo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($documentos as $doc)
-                <tr>
-                    <td>{{ $doc->descricao }}</td>
-                    <td>{{ $doc->horas_in }}</td>
-                    <td>{{ $doc->categoria->nome ?? 'Sem categoria' }}</td>
-                    <td>{{ ucfirst($doc->status) }}</td>
-                    <td>
-                        <a href="{{ asset('storage/' . $doc->url) }}" target="_blank">Ver PDF</a>
-                    </td>
-                    <td>
-                        <a href="{{ route('documentos.edit', $doc->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('documentos.destroy', $doc->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button onclick="return confirm('Tem certeza?')" class="btn btn-danger btn-sm">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="6">Nenhum documento encontrado.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($documentos as $documento)
+                        <tr>
+                            <td>{{ $documento->id }}</td>
+                            <td>{{ $documento->descricao }}</td>
+                            <td>{{ $documento->status }}</td>
+                            <td>{{ $documento->categoria->nome ?? '-' }}</td>
+                            <td>
+                                <a href="{{ route('documentos.show', $documento->id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Visualizar
+                                </a>
+                                <a href="{{ route('documentos.edit', $documento->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <form action="{{ route('documentos.destroy', $documento->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Deletar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 @endsection

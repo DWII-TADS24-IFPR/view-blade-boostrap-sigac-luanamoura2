@@ -15,7 +15,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Curso</th>
-                <th>Carga Horária</th>
+                <th>Total de Horas</th>
                 <th>Ações</th>
             </tr>
         </thead>

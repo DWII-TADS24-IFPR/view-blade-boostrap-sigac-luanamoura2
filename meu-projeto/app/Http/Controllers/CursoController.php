@@ -38,7 +38,7 @@ class CursoController extends Controller
             'nome' => 'required|string|max:255',
             'sigla' => 'required|string|max:10',
             'nivel_id' => 'required|exists:nivels,id',  // O nível deve existir
-            'carga_horaria' => 'required|integer',
+            'total_horas' => 'required|integer',
         ]);
 
 
@@ -47,7 +47,7 @@ class CursoController extends Controller
             'nome' => $request->nome,
             'sigla' => $request->sigla,
             'nivel_id' => $request->nivel_id,
-            'carga_horaria' => $request->carga_horaria,
+            'total_horas' => $request->total_horas,
         ]);
 
         return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso!');
@@ -82,7 +82,7 @@ class CursoController extends Controller
             'nome' => 'required|string|max:255',
             'sigla' => 'required|string|max:10',
             'nivel_id' => 'required|exists:nivels,id',
-            'carga_horaria' => 'required|integer',
+            'total_horas' => 'required|integer',
         ]);
 
         $curso = Curso::findOrFail($id);
@@ -90,7 +90,7 @@ class CursoController extends Controller
             'nome' => $request->nome,
             'sigla' => $request->sigla,
             'nivel_id' => $request->nivel_id,
-            'carga_horaria' => $request->carga_horaria,
+            'total_horas' => $request->total_horas,
         ]);
 
         return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso!');

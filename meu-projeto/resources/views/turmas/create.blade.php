@@ -21,18 +21,11 @@
             <form action="{{ route('turmas.store') }}" method="POST">
                 @csrf
                 <div class="tab-content" id="turmaTabContent">
-                   
                     <div class="tab-pane fade show active" id="dados" role="tabpanel">
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">Nome da Turma</label>
-                            <input type="text" class="form-control" name="nome" id="nome" required>
-                        </div>
-                    
                         <div class="mb-3">
                             <label for="ano" class="form-label">Ano</label>
                             <input type="number" class="form-control" name="ano" id="ano" required>
                         </div>  
-                                            
                         <div class="mb-3">
                             <label for="curso_id" class="form-label">Curso</label>
                             <select class="form-select" name="curso_id" id="curso_id" required>
@@ -44,7 +37,6 @@
                         </div>
                     </div>
 
-                 
                     <div class="tab-pane fade" id="periodo" role="tabpanel">
                         <div class="mb-3">
                             <label for="inicio" class="form-label">Início</label>

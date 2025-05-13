@@ -4,26 +4,31 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddInicioFimToTurmasTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
         Schema::table('turmas', function (Blueprint $table) {
-          
-            $table->unsignedBigInteger('nivel_id')->nullable();
-
-            $table->foreign('nivel_id')->references('id')->on('nivels')->onDelete('set null');
+            $table->date('inicio')->nullable();  
+            $table->date('fim')->nullable();    
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::table('turmas', function (Blueprint $table) {
-            $table->dropForeign(['nivel_id']);
-            $table->dropColumn('nivel_id');
+            $table->dropColumn('inicio'); 
+            $table->dropColumn('fim');    
         });
     }
-};
+}

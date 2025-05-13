@@ -9,7 +9,7 @@ use App\Models\Aluno;
 class Turma extends Model
 {
     protected $table = 'turmas';
-    protected $fillable = ['nome', 'curso_id', 'inicio', 'fim'];
+    protected $fillable = ['ano', 'curso_id', 'inicio', 'fim'];
 
     public function curso(){
         return $this->belongsTo(Curso::class);

@@ -23,7 +23,7 @@ class StoreCursoRequest extends FormRequest
     {
         return [
         'nome' => 'required|string|max:255',
-        'carga_horaria' => 'required|integer|min:1',
+        'total_horas' => 'required|integer|min:1',
     ];
     }
 }

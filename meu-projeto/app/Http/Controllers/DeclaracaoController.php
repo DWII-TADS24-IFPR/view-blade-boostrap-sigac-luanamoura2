@@ -19,7 +19,7 @@ class DeclaracaoController extends Controller
     public function create()
     {
         $comprovantes = Comprovante::all();
-        $alunos = Aluno::all(); 
+        $alunos = Aluno::all();
         return view('declaracoes.create', compact('comprovantes', 'alunos'));
     }
 
@@ -41,41 +41,53 @@ class DeclaracaoController extends Controller
         return redirect()->route('declaracoes.index')->with('success', 'Declaração criada com sucesso!');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-       
+
         $declaracao = Declaracao::with(['comprovante', 'aluno'])->findOrFail($id);
 
-        
+
         if (!$declaracao) {
             return redirect()->route('declaracoes.index')->with('error', 'Declaração não encontrada.');
         }
 
         return view('declaracoes.show', compact('declaracao'));
     }
-   
+
     public function edit(string $id)
     {
-        //
+        $declaracao = Declaracao::findOrFail($id);
+        $alunos = Aluno::all();
+        $comprovantes = Comprovante::all();
+
+        return view('declaracoes.edit', compact('declaracao', 'alunos', 'comprovantes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'data' => 'required|date',
+            'aluno_id' => 'required|exists:alunos,id',
+            'comprovante_id' => 'required|exists:comprovantes,id',
+        ]);
+
+        $declaracao = Declaracao::findOrFail($id);
+        $declaracao->update([
+            'data' => $request->data,
+            'aluno_id' => $request->aluno_id,
+            'comprovante_id' => $request->comprovante_id,
+        ]);
+
+        return redirect()->route('declaracoes.index')->with('success', 'Declaração atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
-        //
+        $declaracao = Declaracao::findOrFail($id);
+        $declaracao->delete();
+
+        return redirect()->route('declaracoes.index')->with('success', 'Declaração excluída com sucesso!');
     }
-}
+};

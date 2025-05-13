@@ -26,8 +26,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Nome</th>
+                        <th>CPF</th>
                         <th>Email</th>
                         <th>Turma</th>
+                        <th>Curso</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -35,8 +37,10 @@
                     @foreach($alunos as $aluno)
                         <tr>
                             <td>{{ $aluno->nome }}</td>
+                            <td>{{ $aluno->cpf }}</td>
                             <td>{{ $aluno->email }}</td>
                             <td>{{ $aluno->turma ? $aluno->turma->ano : 'Sem turma' }}</td>
+                            <td>{{ $aluno->turma ? $aluno->curso->nome : 'Sem curso' }}</td>
                             <td>
                                 <a href="{{ route('alunos.show', $aluno->id) }}" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye"></i> Visualizar

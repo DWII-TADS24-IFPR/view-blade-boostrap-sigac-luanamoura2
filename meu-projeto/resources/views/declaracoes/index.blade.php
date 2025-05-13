@@ -3,14 +3,13 @@
 @section('title', 'Lista de Declarações')
 
 @section('content')
-
 <div class="container mt-5">
     <div class="card shadow rounded-4">
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Lista de Declarações</h4>
         </div>
         <div class="card-body">
-            <!-- Botão Adicionar Declaração no canto esquerdo -->
+
             <div class="mb-3">
                 <a href="{{ route('declaracoes.create') }}" class="btn btn-primary">
                     <i class="bi bi-file-earmark-plus"></i> Nova Declaração
@@ -26,7 +25,7 @@
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
+                        <th>Aluno</th> <!-- Exibe o nome do aluno -->
                         <th>Hash</th>
                         <th>Data</th>
                         <th>Comprovante</th>
@@ -36,7 +35,7 @@
                 <tbody>
                     @forelse ($declaracoes as $declaracao)
                         <tr>
-                            <td>{{ $declaracao->id }}</td>
+                            <td>{{ $declaracao->aluno->nome ?? 'Aluno não encontrado' }}</td>
                             <td>{{ $declaracao->hash }}</td>
                             <td>{{ \Carbon\Carbon::parse($declaracao->data)->format('d/m/Y') }}</td>
                             <td>{{ $declaracao->comprovante->atividade ?? 'N/A' }}</td>
@@ -63,8 +62,8 @@
                     @endforelse
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>
-
 @endsection

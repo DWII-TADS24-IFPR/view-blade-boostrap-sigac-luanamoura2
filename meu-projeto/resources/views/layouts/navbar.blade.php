@@ -31,7 +31,7 @@
                     <a class="nav-link" href="{{ route('nivels.index') }}">Níveis</a>
                 </li>
 
-                <!-- Menu "Mais" agora depois de Níveis -->
+              
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -46,7 +46,7 @@
                 </li>
             </ul>
 
-            <!-- Formulário de busca -->
+       
             <form class="d-flex me-3" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>

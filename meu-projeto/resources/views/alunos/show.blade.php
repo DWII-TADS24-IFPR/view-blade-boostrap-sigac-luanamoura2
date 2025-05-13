@@ -15,16 +15,20 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Turma</th>
+                        <th>Curso</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>{{ $aluno->id }}</td>
                         <td>{{ $aluno->nome }}</td>
                         <td>{{ $aluno->email }}</td>
                         <td>{{ $aluno->turma ? $aluno->turma->ano : 'Sem turma' }}</td>
+                        <td>{{ $aluno->curso ? $aluno->curso->nome : 'Sem curso' }}</td>
                     </tr>
                 </tbody>
             </table>

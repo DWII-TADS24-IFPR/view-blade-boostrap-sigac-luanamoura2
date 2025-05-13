@@ -9,7 +9,7 @@
             <h4 class="mb-0">Lista de Cursos</h4>
         </div>
         <div class="card-body">
-            <!-- Botão Adicionar Curso -->
+     
             <div class="mb-3">
                 <a href="{{ route('cursos.create') }}" class="btn btn-primary">
                     <i class="bi bi-file-earmark-plus"></i> Adicionar Curso
@@ -25,20 +25,22 @@
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
+
                         <th>Nome</th>
+                        <th>Sigla</th>
                         <th>Nível</th>
-                        <th>Horas</th>
+                        <th>Total de Horas</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($cursos as $curso)
                         <tr>
-                            <td>{{ $curso->id }}</td>
+                        
                             <td>{{ $curso->nome }}</td>
+                            <td>{{ $curso->sigla }}</td>
                             <td>{{ $curso->nivel->nome ?? '-' }}</td>
-                            <td>{{ $curso->total_horas }}</td>
+                            <td>{{ (int) $curso->total_horas }}</td>
                             <td>
                                 <a href="{{ route('cursos.show', $curso->id) }}" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye"></i> Visualizar
@@ -57,7 +59,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">Nenhum curso cadastrado.</td>
+                            <td colspan="6" class="text-center">Nenhum curso cadastrado.</td>
                         </tr>
                     @endforelse
                 </tbody>

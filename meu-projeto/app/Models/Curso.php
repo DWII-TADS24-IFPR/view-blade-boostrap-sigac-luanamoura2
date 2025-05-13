@@ -22,7 +22,7 @@ class Curso extends Model
     }
 
     public function turmas(){
-        return $this->hasMany(Turma::class);
+        return $this->belongsTo(Turma::class);
     }
 
     public function alunos(){

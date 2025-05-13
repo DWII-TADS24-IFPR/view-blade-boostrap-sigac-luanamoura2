@@ -33,7 +33,7 @@
                                 {{ $documento->url }}
                             </a>
                         </td>
-                        <td>{{ $documento->categoria->nome ?? '-' }}</td>
+                        <td>{{ $documento->categoria->nome ?? 'Sem categoria' }}</td>
                         <td>{{ $documento->horas_in }}</td>
                         <td>{{ $documento->horas_out }}</td>
                     </tr>

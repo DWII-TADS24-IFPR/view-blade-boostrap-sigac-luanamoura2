@@ -41,7 +41,7 @@
           @error('total_horas') <div class="text-danger">{{ $message }}</div> @enderror
         </div>
 
-        <!-- Campo Nível -->
+      
         <div class="mb-3">
           <label for="nivel_id" class="form-label">Nível</label>
           <select name="nivel_id" id="nivel_id" class="form-select rounded-3" required>
@@ -58,9 +58,10 @@
         <div class="mb-3">
           <label for="turma_id" class="form-label">Turma</label>
           <select name="turma_id" id="turma_id" class="form-select rounded-3">
+            <option value="">Selecione a turma</option>
             @foreach($turmas as $turma)
             <option value="{{ $turma->id }}" {{ $curso->turma_id == $turma->id ? 'selected' : '' }}>
-              {{ $turma->nome }}
+              {{ $turma->ano }} - {{ $turma->periodo }}
             </option>
             @endforeach
           </select>

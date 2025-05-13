@@ -10,7 +10,7 @@
             <h4 class="mb-0">Lista de Categorias</h4>
         </div>
         <div class="card-body">
-            <!-- Botão Adicionar Categoria -->
+          
             <div class="mb-3">
                 <a href="{{ route('categorias.create') }}" class="btn btn-primary">
                     <i class="bi bi-file-earmark-plus"></i> Adicionar Categoria

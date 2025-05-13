@@ -10,7 +10,7 @@
             <h4 class="mb-0">Lista de Documentos</h4>
         </div>
         <div class="card-body">
-            <!-- Botão Adicionar Documento no canto esquerdo -->
+         
             <div class="mb-3">
                 <a href="{{ route('documentos.create') }}" class="btn btn-primary">
                     <i class="bi bi-file-earmark-plus"></i> Adicionar Documento
@@ -26,7 +26,7 @@
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
+                    
                         <th>Descrição</th>
                         <th>Status</th>
                         <th>Categoria</th>
@@ -36,7 +36,7 @@
                 <tbody>
                     @foreach ($documentos as $documento)
                         <tr>
-                            <td>{{ $documento->id }}</td>
+                            
                             <td>{{ $documento->descricao }}</td>
                             <td>{{ $documento->status }}</td>
                             <td>{{ $documento->categoria->nome ?? '-' }}</td>

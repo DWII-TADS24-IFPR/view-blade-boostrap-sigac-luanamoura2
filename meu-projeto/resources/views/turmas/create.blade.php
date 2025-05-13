@@ -52,7 +52,7 @@
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-check-circle"></i> Salvar
                 </button>
-                <a href="{{ route('alunos.index') }}" class="btn btn-secondary">
+                <a href="{{ route('turmas.index') }}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i> Voltar
                 </a>
             </form>

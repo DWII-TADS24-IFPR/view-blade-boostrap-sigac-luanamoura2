@@ -55,7 +55,8 @@ class CategoriaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('categorias.show', compact('categoria'));
     }
 
     /**
@@ -63,22 +64,42 @@ class CategoriaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $cursos = \App\Models\Curso::all();
+
+        return view('categorias.edit', compact('categoria', 'cursos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'max_horas' => 'nullable|integer|min:0',
+        ]);
+
+        $categoria = Categoria::findOrFail($id);
+
+
+        $max_horas = $request->input('max_horas') !== null ? $request->input('max_horas') : 0;
+
+        $categoria->update([
+            'nome' => $request->input('nome'),
+            'max_horas' => $max_horas,
+        ]);
+
+        return redirect()->route('categorias.show', $categoria->id)
+            ->with('success', 'Categoria atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        $categoria->delete();
+
+
+        return redirect()->route('categorias.index')
+            ->with('success', 'Categoria deletada com sucesso!');
     }
 }

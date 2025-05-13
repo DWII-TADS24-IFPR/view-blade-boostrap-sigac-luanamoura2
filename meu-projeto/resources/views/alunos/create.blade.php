@@ -3,6 +3,9 @@
 @section('content')
 <div class="container mt-5">
   <div class="card shadow rounded-4">
+     <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Adicionar Aluno</h4>
+    </div>
     <div class="card-body">
       <form action="{{ route('alunos.store') }}" method="POST">
         @csrf

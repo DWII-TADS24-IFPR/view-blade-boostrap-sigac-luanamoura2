@@ -14,7 +14,7 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $cursos = Curso::with('nivel')->get(); 
+        $cursos = Curso::with('nivel')->get();
         return view('cursos.index', compact('cursos'));
     }
 
@@ -53,17 +53,14 @@ class CursoController extends Controller
         return redirect()->route('cursos.index')->with('success', 'Curso criado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+        $curso = Curso::with('nivel')->findOrFail($id);
+        return view('cursos.show', compact('curso'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         $curso = Curso::findOrFail($id);
@@ -72,9 +69,6 @@ class CursoController extends Controller
         return view('cursos.edit', compact('curso', 'turmas', 'nivels'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
 
     public function update(Request $request, $id)
     {
@@ -95,9 +89,7 @@ class CursoController extends Controller
 
         return redirect()->route('cursos.index')->with('success', 'Curso atualizado com sucesso!');
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         $curso = Curso::findOrFail($id);

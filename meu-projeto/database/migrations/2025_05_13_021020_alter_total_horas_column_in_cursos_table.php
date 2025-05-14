@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('cursos', function (Blueprint $table) {
-            $table->integer('total_horas')->change(); // Alterando para integer
+            $table->integer('total_horas')->change(); 
         });
     }
 
     public function down()
     {
         Schema::table('cursos', function (Blueprint $table) {
-            $table->decimal('total_horas', 5, 2)->change(); // Revertendo para decimal
+            $table->decimal('total_horas', 5, 2)->change(); 
         });
     }
 };

@@ -23,7 +23,7 @@ return new class extends Migration
 public function down()
 {
     Schema::table('cursos', function (Blueprint $table) {
-        $table->unsignedBigInteger('nivel_id')->default(1); // ou nullable se quiser reversível
+        $table->unsignedBigInteger('nivel_id')->default(1); // 
     });
 }
 

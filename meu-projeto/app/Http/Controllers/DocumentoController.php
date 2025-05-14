@@ -60,9 +60,7 @@ public function store(Request $request)
     return redirect()->route('documentos.index')->with('success', 'Documento criado com sucesso!');
 }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
         $documento = Documento::findOrFail($id);
@@ -70,9 +68,7 @@ public function store(Request $request)
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
    public function edit(string $id)
     {
         $documento = Documento::findOrFail($id);
@@ -99,9 +95,7 @@ public function store(Request $request)
 
         return redirect()->route('documentos.index')->with('success', 'Documento atualizado com sucesso!');
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(string $id)
     {
          $documento = Documento::findOrFail($id);

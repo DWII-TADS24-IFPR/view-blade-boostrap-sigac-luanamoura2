@@ -9,9 +9,7 @@ use App\Models\Nivel;
 
 class CursoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $cursos = Curso::with('nivel')->get();
@@ -19,9 +17,7 @@ class CursoController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         $turmas = Turma::all();
@@ -29,15 +25,13 @@ class CursoController extends Controller
         return view('cursos.create', compact('turmas', 'nivels'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
             'sigla' => 'required|string|max:10',
-            'nivel_id' => 'required|exists:nivels,id',  // O nível deve existir
+            'nivel_id' => 'required|exists:nivels,id',  
             'total_horas' => 'required|integer',
         ]);
 

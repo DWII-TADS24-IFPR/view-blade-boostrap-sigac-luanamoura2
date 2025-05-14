@@ -7,9 +7,7 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
 
@@ -18,18 +16,14 @@ class CategoriaController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         $cursos = \App\Models\Curso::all();
         return view('categorias.create', compact('cursos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
 
@@ -50,18 +44,14 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
         $categoria = Categoria::findOrFail($id);
         return view('categorias.show', compact('categoria'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         $categoria = Categoria::findOrFail($id);
